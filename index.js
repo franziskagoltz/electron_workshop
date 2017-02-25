@@ -11,4 +11,11 @@ app.on('ready', () => {
 
     mainWindow = new BrowserWindow({});
     mainWindow.loadURL(`file:///${index}`);
+
+    mainWindow.webContents.on("will-navigate", (e, url) => {
+        e.preventDefault();
+        console.log(`We tried to havigate to: ${url}`);
+
+        mainWindow.webContents.send("navigate", url);
+    })
 });
